@@ -172,12 +172,12 @@ use Illuminate\Support\Facades\Route;
     Route::get('/edit_faq/{id}', 'AdminController@edit_faq')->name('edit_faq');
     Route::post('/update_admin_faqs/{id}', 'AdminController@update_admin_faqs')->name('update_admin_faqs');
 
-    
+
     Route::get('/view_user_profile/{id}', 'AdminController@view_profile')->name('view_user_profile');
         Route::get('/delete_user_profile/{id}', 'AdminController@delete_user_profile')->name('delete_user_profile');
     Route::get('/user_chk_out/{id}', 'AdminController@check_out_user')->name('user_chk_out');
-    
-    
+
+
     Route::get('/user_chk_in/{id}', 'AdminController@user_chk_in')->name('user_chk_in');
 });
 
@@ -315,7 +315,7 @@ Route::group(['prefix' => 'influence'], function () {
   });
 
 
-  
+
 Route::group(['namespace'=>'Customer','prefix'=>'customer'],function(){
 
     Route::resource('posts','PostController');
@@ -323,7 +323,7 @@ Route::group(['namespace'=>'Customer','prefix'=>'customer'],function(){
     Route::get('user-transaction','TransactionController@index')->name('user-transaction');
     Route::get('customer-product','ProductController@index')->name('customer-product');
     Route::get('policy','PolicyController@index')->name('policy');
-    
+
     });
   });
 
@@ -366,4 +366,49 @@ Route::group(['prefix' => 'vendor'], function () {
          });
 });
 
+Route::group(['prefix' => 'partner'], function () {
+    Route::get('/login', 'PartnerAuth\LoginController@showLoginForm')->name('partner.login');
+    Route::post('/login', 'PartnerAuth\LoginController@login');
+    Route::post('/logout', 'PartnerAuth\LoginController@logout')->name('partner.logout');
 
+    Route::group(['middleware' => 'partner'], function (){
+        Route::get('/dashboared', 'PartnerController@index')->name('partner_dashboared');
+        Route::get('/admin_user_feedbacks', 'PartnerController@admin_user_feedbacks')->name('partner_admin_user_feedbacks');
+        Route::get('/admin_delete_feedbacks/{id}', 'PartnerController@admin_delete_feedbacks')->name('partner_admin_delete_feedbacks');
+        Route::get('/admin_profile_update', 'PartnerController@admin_profile_update')->name('partner_admin_profile_update');
+        Route::post('/admin_profile_update_save', 'PartnerController@admin_profile_update_save')->name('partner_admin_profile_update_save');
+
+
+    });
+});
+
+Route::group(['prefix' => 'gym_manager'], function () {
+    Route::get('/login', 'Gym_ManagerAuth\LoginController@showLoginForm')->name('gym_manager.login');
+    Route::post('/login', 'Gym_ManagerAuth\LoginController@login');
+    Route::post('/logout', 'Gym_ManagerAuth\LoginController@logout')->name('gym_manager.logout');
+
+   Route::group(['middleware' => 'gym_manager'], function (){
+
+    Route::get('/gym_manager_home','ManagerController@index')->name('gym_manager_home');
+    Route::get('/contact_zurvos','ManagerController@contact_zurvos')->name('gym_manager_contact_zurvos');
+    Route::post('/contact_zurvos_store','ManagerController@contact_zurvos_store')->name('gym_manager_contact_zurvos_store');
+
+    Route::get('/user_chk_out', 'ManagerController@check_out_user')->name('gym_manager_user_chk_out');
+
+
+    Route::get('/user_chk_in', 'ManagerController@user_chk_in')->name('gym_manager_user_chk_in');
+
+    Route::get('/admin_add_gym', 'ManagerController@admin_add_gym')->name('admin_add_gym');
+    Route::post('/save_gym', 'ManagerController@save_gym')->name('save_gym_manager');
+
+    Route::post('/gym_descriptions/{id}', 'ManagerController@gym_descriptions')->name('gym_manager_descriptions');
+    Route::post('/gym_location/{id}', 'ManagerController@gym_location')->name('gym_manager_location');
+
+
+    Route::get('/manager_save_employee', 'ManagerController@manager_save_employee')->name('manager_save_employee');
+    Route::post('/save_employee', 'ManagerController@save_employee')->name('save_employee');
+    
+     
+
+    });
+});

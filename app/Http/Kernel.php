@@ -72,5 +72,12 @@ class Kernel extends HttpKernel
         'influence.guest' => \App\Http\Middleware\RedirectIfInfluence::class,
         'vendor' => \App\Http\Middleware\RedirectIfNotVendor::class,
         'vendor.guest' => \App\Http\Middleware\RedirectIfVendor::class,
+        'partner' => \App\Http\Middleware\RedirectIfNotPartner::class,
+        'partner.guest' => \App\Http\Middleware\RedirectIfPartner::class,
+
+        'gym_manager' => \App\Http\Middleware\RedirectIfNotgym_manager::class,
+        'gym_manager.guest' => \App\Http\Middleware\RedirectIfgym_manager::class,
+
+        
     ];
 }

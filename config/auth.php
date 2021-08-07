@@ -34,7 +34,7 @@ return [
     | Supported: "session", "token"
     |
     */
-    
+
     'guards' => [
         'web' => [
             'driver' => 'session',
@@ -62,6 +62,15 @@ return [
             'driver' => 'session',
             'provider' => 'vendor',
         ],
+        'partner' => [
+            'driver' => 'session',
+            'provider' => 'partner',
+        ],
+        'gym_manager' => [
+            'driver' => 'session',
+            'provider' => 'gym_manager',
+        ],
+        
     ],
 
     /*
@@ -111,6 +120,15 @@ return [
             'driver' => 'eloquent',
             'model' => App\Vendors::class
         ],
+        'partner' => [
+            'driver' => 'eloquent',
+            'model' => App\Partner::class
+        ],
+        'gym_manager' => [
+            'driver' => 'eloquent',
+            'model' => App\gym_manager::class
+        ],
+        
     ],
 
     /*
@@ -163,6 +181,18 @@ return [
             'table' => 'customer_password_resets',
             'expire' => 60,
         ],
+
+        'partners' => [
+            'provider' => 'partner',
+            'table' => 'customer_password_resets',
+            'expire' => 60,
+        ],
+        'gym_managers' => [
+            'provider' => 'gym_manager',
+            'table' => 'customer_password_resets',
+            'expire' => 60,
+        ],
+        
     ],
 
     /*
